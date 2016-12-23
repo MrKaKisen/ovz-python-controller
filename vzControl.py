@@ -1,7 +1,8 @@
 # Made by Vilhelm Prytz 2016.
 # Email: vilhelm@prytznet.se
 #
-# Release 1.0.
+# Release 1.1.
+version = "1.1"
 # https://github.com/MrKaKisen/Python-Powered-OpenVZ-Container-Controller
 import subprocess
 
@@ -20,6 +21,7 @@ def createCT(CTID):
 	newIP = raw_input("Enter new IP for CT: ")
 	newHostname = raw_input("Enter new hostname for CT: ")
 	newOSTemplate = raw_input("Enter the OS name (template): ")
+	newRootPassword = raw_input("Enter new root password: ")
 	newRAM = raw_input("Enter new amount of RAM (in G or M format): ")
 	newSWAP = raw_input("Enter new amount of SWAP (in G or M format): ")
 	newCPU = raw_input("Enter new amount of CPUs: ")
@@ -33,6 +35,7 @@ def createCT(CTID):
 		nullRoute = subprocess.check_output(["vzctl", "set", newID, "--diskspace", newDisk + ":" + newDisk, "--save"])
 		nullRoute = subprocess.check_output(["vzctl", "set", newID, "--ipadd", newIP, "--nameserver", "8.8.8.8", "--ram", newRAM, "--swap", newSWAP, "--cpus", newCPU, "--save"])
 		nullRoute = subprocess.check_output(["vzctl", "set", newID, "--hostname", newHostname, "--save"])
+		nullRoute = subprocess.check_output(["vzctl", "set", newID, "--userpasswd", "root" + ":" + newRootPassword, "--save"])
 		print("Settings set. Booting CT.")
 		nullRoute = subprocess.check_output(["vzctl", "start", newID])
 		print("Booted!")
@@ -42,7 +45,7 @@ def createCT(CTID):
 		print("Aborting")
 	return CTID
 
-print("Welcome to VZ control by Vilhelm Prytz.")
+print("Welcome to VZ control by Vilhelm Prytz. Version: " + version)
 print("1 - Control Existing CT")
 print("2 - Create new CT")
 toDo = raw_input("Enter 1 or 2: ")
@@ -80,6 +83,7 @@ while exitCode is False:
 	print("1 - Stop CT")
 	print("2 - Start CT")
 	print("3 - Display status")
+	print("4 - Change root password")
 
 	actionDo = raw_input("Input action: ")
 
@@ -103,6 +107,11 @@ while exitCode is False:
 			getStatus(CTID)
 		else:
 			print("CT IS NOT RUNNING, NO STATUS DISPLAYED")
+	if (actionDo == "4"):
+		print("Changing password for root")
+		newPassword = input_raw("New root password for" + CTID + ": ")
+		nullRoute = subprocess.check_output(["vzctl", "set", newID, "--userpasswd", "root" + ":" + newPassword, "--save"]
+		print("Password changed!")
 	else:
 		print("Command not found.")
 #p = subprocess.Popen(["vzctl", "stop", "623"])
