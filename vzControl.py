@@ -1,7 +1,8 @@
 # Made by Vilhelm Prytz 2016.
 # Email: vilhelm@prytznet.se
 #
-# Release 1.0.
+# Release 1.1.
+version = "1.1"
 # https://github.com/MrKaKisen/Python-Powered-OpenVZ-Container-Controller
 import subprocess
 
@@ -44,7 +45,7 @@ def createCT(CTID):
 		print("Aborting")
 	return CTID
 
-print("Welcome to VZ control by Vilhelm Prytz.")
+print("Welcome to VZ control by Vilhelm Prytz. Version: " + version)
 print("1 - Control Existing CT")
 print("2 - Create new CT")
 toDo = raw_input("Enter 1 or 2: ")
