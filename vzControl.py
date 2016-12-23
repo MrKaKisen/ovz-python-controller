@@ -110,7 +110,7 @@ while exitCode is False:
 	if (actionDo == "4"):
 		print("Changing password for root")
 		newPassword = input_raw("New root password for" + CTID + ": ")
-		nullRoute = subprocess.check_output(["vzctl", "set", newID, "--userpasswd", "root" + ":" + newPassword, "--save"]
+		nullRoute = subprocess.check_output(["vzctl", "set", newID, "--userpasswd", "root" + ":" + newPassword, "--save"])
 		print("Password changed!")
 	else:
 		print("Command not found.")
