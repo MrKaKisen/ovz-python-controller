@@ -3,7 +3,7 @@
 #
 # Release 1.1.
 version = "1.1"
-# https://github.com/MrKaKisen/Python-Powered-OpenVZ-Container-Controller
+# https://github.com/MrKaKisen/ovz-python-controller
 import subprocess
 
 def getStatus(CTID):
